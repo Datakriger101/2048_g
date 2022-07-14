@@ -11,31 +11,10 @@ using namespace std;
 
 //functions
 
-class Game{    
-    private:
-        std::vector <int> board; // 1-16 spaces.
-
-    public:
-        Game();      //startup new game
-};
-
-std::map <std::string, Game*> games;
-
-// main program
-
 int main(){
+    char tegn; 
 
-    new Game();
-
-    return 0;
+    cin >> tegn; 
+    cout << "\n" << tegn << "\n";
+    //Conclusion, can not use arrow keys with terminal. fuck
 }
-
-//game func
-
-
-    Game::Game(){
-        for(int i = 0; i < 16; i++)
-            board[i] = 0;
-
-        return;
-    }

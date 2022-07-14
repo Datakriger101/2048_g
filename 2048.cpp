@@ -9,15 +9,17 @@
 
 class Game{
     private:
-        int board[16];    //b for board
+        std::vector <int> b;
         std::string name;
 
     public:
         //void readFile();
-        void reset();
+        void startup();
         void displayName();
         void displayBoard();
         void playGame();
+
+        Game();
 
 };
 
@@ -54,27 +56,45 @@ int main(){
     }
 }
 
-void Game::reset(){
+Game::Game(){
+
     this->name = r_string("What is the name of the game");
-    
     for(int i = 0; i < 16; i++){
-        board[i] = 0;
+        b.push_back(0);
     }
 }
 
-void Game::displayName(){
-    std::cout << this->name;
-}
+void Game::startup(){   //in use??
 
-void Game::displayBoard(){
-    for(int i = 0; i < 16; i++){
-        std::cout << board[i] << " ";
-        if(i % 3 == 0) std::cout << "\n";
-    }
 }
 
 void Game::playGame(){
+    
     displayBoard();
+}
+
+void Game::displayBoard(){
+    std::cout << "- - - - - - - - - - - - - - - - -" << std::endl;
+    std::cout << "| " << std::setw(5) << b[0] << " | " << std::setw(5) << b[1] << " | " << std::setw(5) << b[2] << " | " << std::setw(5) << b[3] << " |" << std::endl;
+    std::cout << "- - - - - - - - - - - - - - - - -" << std::endl;
+    std::cout << "| " << std::setw(5) << b[4] << " | " << std::setw(5) << b[5] << " | " << std::setw(5) << b[6] << " | " << std::setw(5) << b[7] << " |" << std::endl;
+    std::cout << "- - - - - - - - - - - - - - - - -" << std::endl;
+    std::cout << "| " << std::setw(5) << b[8] << " | " << std::setw(5) << b[9] << " | " << std::setw(5) << b[10] << " | " << std::setw(5) << b[11] << " |" << std::endl;
+    std::cout << "- - - - - - - - - - - - - - - - -" << std::endl;
+    std::cout << "| " << std::setw(5) << b[12] << " | " << std::setw(5) << b[13] << " | " << std::setw(5) << b[14] << " | " << std::setw(5) << b[15] << " |" << std::endl;
+    std::cout << "- - - - - - - - - - - - - - - - -" << std::endl;
+}
+
+/*
+void Game::n_displayBoard(){
+
+}
+*/
+
+
+
+void Game::displayName(){
+    std::cout << this->name;
 }
 
 /*
@@ -84,12 +104,12 @@ void Game::playGame(){
 void new_game(){
 
     std::cout << "\nhey\n" << std::endl;
-    Game *temp = new Game();
+    Game *new_G = new Game();
 
     std::cout << "\ncheck 1" << std::endl;
 
-    temp->reset();
-    gGames.push_back(temp);
+    //temp->startup();
+    gGames.push_back(new_G);
 
 }
 
@@ -99,7 +119,7 @@ void play_game(){
         show_games();
         nr = r_int_bet("Whitch game do you want to play", 0, gGames.size());
         if(nr){
-            gGames[nr]->playGame();
+            gGames[nr-1]->playGame();
         }else
             std::cout << "\nNo games will be played!" << std::endl;
 
