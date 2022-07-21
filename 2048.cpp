@@ -26,11 +26,18 @@ class Game
 
         void moveMenu();
         void newRandNumber();
-        bool checkValidMove(char tegn);
-        bool checkLoss();
-        // void movePlay();
 
-        Game();
+        bool checkValidMove(char tegn);
+        bool checkMoveRight();
+        bool checkLoss();
+
+        //Better way to do this?
+        void moveUp();
+        void moveLeft();
+        void moveDown();
+        void moveRight();
+
+        Game(); //constructor to make to board
 };
 
 /*
@@ -55,8 +62,6 @@ int main()
 
     while (input != 'Q')
     {
-        std::cout << "\n"
-                  << input << "\n";
         switch (input)
         {
         case 'N' : new_game();      break;
@@ -65,7 +70,7 @@ int main()
         }
 
         menu();
-        std::cout << "\ncheck2" << std::endl;
+
         input = r_char("What operation do you want to execute");
     }
 }
@@ -81,36 +86,249 @@ Game::Game()
     }
 }
 
+/*
+    Move functions, fuck dette kan ta tid. 
+*/
+
+void Game::moveUp(){}
+
+void Game::moveLeft(){}
+
+void Game::moveDown(){}
+
+void Game::moveRight()
+{
+    std::cout << "\n-5-" << std::endl;
+    bool moveRight = true;
+    int ant = 0;
+
+    // Lim inn 80% kode her. 
+
+    if(b[3] == 0 && b[2] == 0 && b[1] == 0 && b[0] == 0) moveRight = false;
+
+    std::cout << "\n-7-" << std::endl;
+
+    //Move right line1R
+    while(moveRight){
+
+        if(b[2] == b[3] && b[3] != 0){                      // 2 høyre er lik
+        b[3] = b[2] + b[3]; b[2] = 0;
+
+            if(b[0] == b[1] && b[1] != 0){                  // 2 venstre også lik
+              b[2] = b[0] + b[1]; b[1] = b[0] = 0;
+
+            }else{
+               b[2] = b[1]; b[1] = b[0]; b[0] = 0;         // bare 2 høyre var lik
+            }
+
+        }else if(b[1] == b[2] && b[2] != 0){                // 2 midten var lik
+            b[2] = b[2] + b[1]; 
+            b[1] = b[0]; b[0] = 0;
+
+        }else if(b[0] == b[1] && b[1] != 0){
+            b[1] = b[1] + b[0]; b[0] = 0;
+
+        }
+
+        if(b[3] == 0){
+            b[3] = b[2]; b[2] = 0;
+            b[2] = b[1]; b[1] = 0;
+            b[1] = b[0]; b[0] = 0;
+        }
+        if(b[2] == 0){
+            b[2] = b[1]; b[1] = 0;
+            b[1] = b[0]; b[0] = 0;
+        }
+        if(b[1] == 0){
+            b[1] = b[0]; b[0] = 0;
+        }
+
+        if(ant == 3){
+            moveRight = false;
+        }else ant++;
+        
+    }
+
+    //Move right line2R
+    moveRight = true; ant = 0;
+    if(b[7] == 0 && b[6] == 0 && b[5] == 0 && b[4] == 0){ moveRight = false; }
+
+    while(moveRight){
+
+        if(b[6] == b[7] && b[7] != 0){                      // 2 høyre er lik
+        b[7] = b[6] + b[7]; b[6] = 0;
+
+            if(b[4] == b[5] && b[5] != 0){                  // 2 venstre også lik
+              b[6] = b[4] + b[5]; b[5] = b[5] = 0;
+
+            }else{
+               b[6] = b[5]; b[5] = b[4]; b[4] = 0;         // bare 2 høyre var lik
+            }
+
+        }else if(b[5] == b[6] && b[6] != 0){                // 2 midten var lik
+            b[6] = b[6] + b[5]; 
+            b[5] = b[4]; b[4] = 0;
+
+        }else if(b[4] == b[5] && b[5] != 0){
+            b[5] = b[5] + b[4]; b[4] = 0;
+
+        }
+
+        if(b[7] == 0){
+            b[7] = b[6]; b[6] = 0;
+            b[6] = b[5]; b[5] = 0;
+            b[5] = b[4]; b[4] = 0;
+        }
+        if(b[6] == 0){
+            b[6] = b[5]; b[5] = 0;
+            b[5] = b[4]; b[4] = 0;
+        }
+        if(b[5] == 0){
+            b[5] = b[4]; b[4] = 0;
+        }
+
+        if(ant == 3){
+            moveRight = false;
+        }else ant++;
+
+    }
+
+    //Move right line3R from top
+    moveRight = true; ant = 0;
+    if(b[11] == 0 && b[10] == 0 && b[9] == 0 && b[8] == 0){ moveRight = false; }
+
+    while(moveRight){
+
+        if(b[10] == b[11] && b[11] != 0){                      // 2 høyre er lik
+        b[11] = b[10] + b[11]; b[10] = 0;
+
+            if(b[8] == b[9] && b[9] != 0){                  // 2 venstre også lik
+              b[10] = b[8] + b[9]; b[9] = b[9] = 0;
+
+            }else{
+               b[10] = b[9]; b[9] = b[8]; b[8] = 0;         // bare 2 høyre var lik
+            }
+
+        }else if(b[9] == b[10] && b[10] != 0){                // 2 midten var lik
+            b[10] = b[10] + b[9]; 
+            b[9] = b[8]; b[8] = 0;
+
+        }else if(b[8] == b[9] && b[9] != 0){
+            b[9] = b[9] + b[8]; b[8] = 0;
+
+        }
+
+        if(b[11] == 0){
+            b[11] = b[10]; b[10] = 0;
+            b[10] = b[9]; b[9] = 0;
+            b[9] = b[8]; b[8] = 0;
+        }
+        if(b[10] == 0){
+            b[10] = b[9]; b[9] = 0;
+            b[9] = b[8]; b[8] = 0;
+        }
+        if(b[9] == 0){
+            b[9] = b[8]; b[8] = 0;
+        }
+
+        if(ant == 3){
+            moveRight = false;
+        }else ant++;
+
+    }
+
+    //Move right line4R from top
+    moveRight = true; ant = 0;
+    if(b[11] == 0 && b[10] == 0 && b[9] == 0 && b[8] == 0){ moveRight = false; }
+
+    while(moveRight){
+
+        if(b[14] == b[15] && b[15] != 0){                      // 2 høyre er lik
+        b[15] = b[14] + b[14]; b[14] = 0;
+
+            if(b[12] == b[13] && b[13] != 0){                  // 2 venstre også lik
+              b[14] = b[12] + b[13]; b[13] = b[13] = 0;
+
+            }else{
+               b[14] = b[13]; b[13] = b[12]; b[12] = 0;         // bare 2 høyre var lik
+            }
+
+        }else if(b[13] == b[14] && b[14] != 0){                // 2 midten var lik
+            b[14] = b[14] + b[13]; 
+            b[13] = b[12]; b[12] = 0;
+
+        }else if(b[12] == b[13] && b[13] != 0){
+            b[13] = b[13] + b[12]; b[12] = 0;
+
+        }
+
+        if(b[15] == 0){
+            b[15] = b[14]; b[14] = 0;
+            b[14] = b[13]; b[13] = 0;
+            b[13] = b[12]; b[12] = 0;
+        }
+        if(b[14] == 0){
+            b[14] = b[13]; b[13] = 0;
+            b[13] = b[12]; b[12] = 0;
+        }
+        if(b[13] == 0){
+            b[13] = b[13]; b[13] = 0;
+        }
+ 
+        if(ant == 3){
+            moveRight = false;
+        }else ant++;
+
+    }
+
+}
+
+
 void Game::playGame()
 {
+    std::cout << "\n!1!" << std::endl;
     if(!lost){
         displayBoard();
         moveMenu();
     
     //newRandNumber();
-
+        std::cout << "\n!2!" << std::endl;
         char input = r_char("What operation u want to do");
-        while (input != 'Q')
+        while (input != 'Q' && lost != true)
         {
             //legge til at hvis ingen posisjoner er 0, så vill spilles avsluttes.
 
             if (checkValidMove(input))
             {
+                std::cout << "\n!3!" << std::endl;
+                std::cout << "\nValid - " << input << "\n";
+
+                std::cout << "\n!4!" << std::endl;
+
+                switch(input){
+                    case 'W' : moveUp(); break;
+                    case 'A' : moveLeft(); break;
+                    case 'S' : moveDown(); break;
+                    case 'D' : moveRight(); break;
+                }
+
                 newRandNumber();
                 displayBoard();
-                std::cout << "\nValid - " << input << "\n";
 
             }
             else
-                std::cout << "\nInvalid input\n";
+                std::cout << "\nInvalid input, try another char\n";
             
-            if(checkLoss()){lost = true; break;}
+            if(checkLoss()){
+                std::cout << "\nThe game has ended!" << std::endl;
+                lost = true;
+            }
 
             input = r_char("What operation u want to do");
 
         }
     }else
-        std::cout << "\nThe has ended!" << std::endl;
+        std::cout << "\nThis game has ended!" << std::endl;
         displayBoard();
 }
 
@@ -153,7 +371,6 @@ void Game::displayBoard()
     std::cout << "| " << std::setw(5) << b[12] << " | " << std::setw(5) << b[13] << " | " << std::setw(5) << b[14] << " | " << std::setw(5) << b[15] << " |" << std::endl;
     std::cout << "- - - - - - - - - - - - - - - - -" << std::endl;
 }
-
 void Game::displayName()
 {
     std::cout << this->name;
@@ -171,8 +388,6 @@ void Game::moveMenu()
 void new_game()
 {
 
-    std::cout << "\nhey\n"
-              << std::endl;
     Game *new_G = new Game();
 
     std::cout << "\ncheck 1" << std::endl;
