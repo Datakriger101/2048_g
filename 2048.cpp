@@ -91,7 +91,179 @@ Game::Game()
     Move functions, fuck dette kan ta tid. 
 */
 
-void Game::moveUp(){}
+void Game::moveUp()
+{
+    bool moveUp = true;
+    int ant = 0;
+
+    if(b[12] == 0 && b[8] == 0 && b[4] == 0 && b[0] == 0) moveUp = false;
+
+    //Move up line1U, from left
+    while(moveUp){
+
+        if(b[0] == 0){
+            b[0] = b[4]; b[4] = 0;
+            b[4] = b[8]; b[8] = 0;
+            b[8] = b[12]; b[12] = 0;
+        }
+        if(b[4] == 0){
+            b[4] = b[8]; b[8] = 0;
+            b[8] = b[12]; b[12] = 0;
+        }
+        if(b[8] == 0){
+            b[8] = b[12]; b[12] = 0;
+        }
+
+        if(ant == 3){
+            moveUp = false;
+        }else ant++;
+    }
+
+    if(b[0] == b[4] && b[4] != 0){                      
+        b[0] = b[4] + b[0]; b[4] = 0;
+
+        if(b[8] == b[12] && b[12] != 0){                  
+            b[4] = b[8] + b[12]; b[8] = b[12] = 0;
+    }else{                                          
+        b[4] = b[8]; b[8] = b[12]; b[12] = 0;
+    }
+
+    }else if(b[4] == b[8] && b[8] != 0){                
+        b[4] = b[4] + b[8]; 
+        b[8] = b[12]; b[12] = 0;
+
+    }else if(b[8] == b[12] && b[12] != 0){
+        b[8] = b[8] + b[12]; b[12] = 0;
+
+    }
+
+    moveUp = true; ant = 0;
+    if(b[13] == 0 && b[9] == 0 && b[5] == 0 && b[1] == 0) moveUp = false;
+
+    //Move up line2U, from left
+    while(moveUp){
+
+        if(b[1] == 0){
+            b[1] = b[5]; b[5] = 0;
+            b[5] = b[9]; b[9] = 0;
+            b[9] = b[13]; b[13] = 0;
+        }
+        if(b[5] == 0){
+            b[5] = b[9]; b[9] = 0;
+            b[9] = b[13]; b[13] = 0;
+        }
+        if(b[9] == 0){
+            b[9] = b[13]; b[13] = 0;
+        }
+
+        if(ant == 3){
+            moveUp = false;
+        }else ant++;
+    }
+
+    if(b[1] == b[5] && b[5] != 0){                      
+        b[1] = b[5] + b[1]; b[5] = 0;
+
+        if(b[9] == b[13] && b[13] != 0){                  
+            b[5] = b[5] + b[13]; b[9] = b[13] = 0;
+    }else{                                          
+        b[5] = b[9]; b[9] = b[13]; b[13] = 0;
+    }
+
+    }else if(b[5] == b[9] && b[9] != 0){                
+        b[5] = b[5] + b[9]; 
+        b[9] = b[13]; b[13] = 0;
+
+    }else if(b[9] == b[13] && b[13] != 0){
+        b[9] = b[9] + b[13]; b[13] = 0;
+
+    }
+
+    moveUp = true; ant = 0;
+    if(b[14] == 0 && b[10] == 0 && b[6] == 0 && b[2] == 0) moveUp = false;
+
+    //Move up line2U, from left
+    while(moveUp){
+
+        if(b[2] == 0){
+            b[2] = b[6]; b[6] = 0;
+            b[6] = b[10]; b[10] = 0;
+            b[10] = b[14]; b[14] = 0;
+        }
+        if(b[6] == 0){
+            b[6] = b[10]; b[10] = 0;
+            b[10] = b[14]; b[14] = 0;
+        }
+        if(b[10] == 0){
+            b[10] = b[14]; b[14] = 0;
+        }
+
+        if(ant == 3){
+            moveUp = false;
+        }else ant++;
+    }
+
+    if(b[2] == b[6] && b[6] != 0){                      
+        b[2] = b[6] + b[2]; b[6] = 0;
+
+        if(b[10] == b[14] && b[14] != 0){                  
+            b[6] = b[6] + b[14]; b[10] = b[14] = 0;
+    }else{                                          
+        b[6] = b[10]; b[10] = b[14]; b[14] = 0;
+    }
+
+    }else if(b[6] == b[10] && b[10] != 0){                
+        b[6] = b[6] + b[10]; 
+        b[10] = b[14]; b[14] = 0;
+
+    }else if(b[10] == b[14] && b[10] != 0){
+        b[10] = b[10] + b[14]; b[14] = 0;
+
+    }
+
+    moveUp = true; ant = 0;
+    if(b[15] == 0 && b[11] == 0 && b[7] == 0 && b[3] == 0) moveUp = false;
+
+    //Move up line2U, from left
+    while(moveUp){
+
+        if(b[3] == 0){
+            b[3] = b[7]; b[7] = 0;
+            b[7] = b[11]; b[11] = 0;
+            b[11] = b[15]; b[15] = 0;
+        }
+        if(b[7] == 0){
+            b[7] = b[11]; b[11] = 0;
+            b[11] = b[15]; b[15] = 0;
+        }
+        if(b[11] == 0){
+            b[11] = b[15]; b[15] = 0;
+        }
+
+        if(ant == 3){
+            moveUp = false;
+        }else ant++;
+    }
+
+    if(b[3] == b[7] && b[7] != 0){                      
+        b[3] = b[7] + b[3]; b[7] = 0;
+
+        if(b[11] == b[15] && b[15] != 0){                  
+            b[7] = b[7] + b[15]; b[11] = b[15] = 0;
+    }else{                                          
+        b[7] = b[11]; b[11] = b[15]; b[15] = 0;
+    }
+
+    }else if(b[7] == b[11] && b[11] != 0){                
+        b[7] = b[7] + b[11]; 
+        b[11] = b[15]; b[15] = 0;
+
+    }else if(b[11] == b[15] && b[11] != 0){
+        b[11] = b[11] + b[15]; b[15] = 0;
+
+    }
+
+}
 
 void Game::moveLeft()
 {
@@ -264,8 +436,8 @@ void Game::moveLeft()
             }
 
         }else if(b[14] == b[13] && b[13] != 0){                // 2 midten var lik
-            b[9] = b[9] + b[10]; 
-            b[10] = b[11]; b[11] = 0; moveLeft = false; 
+            b[13] = b[13] + b[14]; 
+            b[14] = b[15]; b[15] = 0; moveLeft = false; 
 
         }else if(b[15] == b[14] && b[14] != 0){
             b[14] = b[14] + b[15]; b[15] = 0; moveLeft = false; 
@@ -276,22 +448,22 @@ void Game::moveDown(){
     bool moveDown = true;
     int ant = 0;
 
-    if(b[3] == 0 && b[2] == 0 && b[1] == 0 && b[0] == 0) moveDown = false;
+    if(b[0] == 0 && b[4] == 0 && b[8] == 0 && b[12] == 0) moveDown = false;
 
     //Move down line1D, from left
     while(moveDown){
 
-        if(b[3] == 0){
-            b[3] = b[2]; b[2] = 0;
-            b[2] = b[1]; b[1] = 0;
-            b[1] = b[0]; b[0] = 0;
+        if(b[12] == 0){
+            b[12] = b[8]; b[8] = 0;
+            b[8] = b[4]; b[4] = 0;
+            b[4] = b[0]; b[0] = 0;
         }
-        if(b[2] == 0){
-            b[2] = b[1]; b[1] = 0;
-            b[1] = b[0]; b[0] = 0;
+        if(b[8] == 0){
+            b[8] = b[4]; b[4] = 0;
+            b[4] = b[0]; b[0] = 0;
         }
-        if(b[1] == 0){
-            b[1] = b[0]; b[0] = 0;
+        if(b[4] == 0){
+            b[4] = b[0]; b[0] = 0;
         }
 
         if(ant == 3){
@@ -299,22 +471,148 @@ void Game::moveDown(){
         }else ant++;
     }
 
-    if(b[2] == b[3] && b[3] != 0){                      
-        b[3] = b[2] + b[3]; b[2] = 0;
+    if(b[8] == b[12] && b[12] != 0){                      
+        b[12] = b[8] + b[12]; b[8] = 0;
 
-        if(b[0] == b[1] && b[1] != 0){                  
-            b[2] = b[0] + b[1]; b[1] = b[0] = 0; moveDown = false;
-
+        if(b[0] == b[4] && b[4] != 0){                  
+            b[8] = b[0] + b[4]; b[4] = b[0] = 0;
     }else{                                          
-        b[2] = b[1]; b[1] = b[0]; b[0] = 0; moveDown = false; 
+        b[8] = b[4]; b[4] = b[0]; b[0] = 0;
     }
 
-    }else if(b[1] == b[2] && b[2] != 0){                
-        b[2] = b[2] + b[1]; 
-        b[1] = b[0]; b[0] = 0; moveDown = false; 
+    }else if(b[4] == b[8] && b[8] != 0){                
+        b[8] = b[8] + b[4]; 
+        b[4] = b[0]; b[0] = 0;
 
-    }else if(b[0] == b[1] && b[1] != 0){
-        b[1] = b[1] + b[0]; b[0] = 0; moveDown = false; 
+    }else if(b[0] == b[4] && b[4] != 0){
+        b[4] = b[4] + b[0]; b[0] = 0;
+
+    }
+    
+    moveDown = true; ant = 0;
+    if(b[1] == 0 && b[5] == 0 && b[9] == 0 && b[13] == 0) moveDown = false;
+
+    //Move down line2D, from left - not down
+    while(moveDown){
+
+        if(b[13] == 0){
+            b[13] = b[9]; b[9] = 0;
+            b[9] = b[5]; b[5] = 0;
+            b[5] = b[1]; b[1] = 0;
+        }
+        if(b[9] == 0){
+            b[9] = b[5]; b[5] = 0;
+            b[5] = b[1]; b[1] = 0;
+        }
+        if(b[5] == 0){
+            b[5] = b[1]; b[1] = 0;
+        }
+
+        if(ant == 3){
+            moveDown = false;
+        }else ant++;
+    }
+
+    if(b[9] == b[13] && b[13] != 0){                      
+        b[13] = b[9] + b[13]; b[9] = 0;
+
+        if(b[1] == b[5] && b[5] != 0){                  
+            b[9] = b[1] + b[5]; b[5] = b[1] = 0;
+    }else{                                          
+        b[9] = b[5]; b[5] = b[1]; b[1] = 0;
+    }
+
+    }else if(b[5] == b[9] && b[9] != 0){                
+        b[9] = b[9] + b[5]; 
+        b[5] = b[1]; b[1] = 0;
+
+    }else if(b[1] == b[5] && b[5] != 0){
+        b[5] = b[5] + b[1]; b[1] = 0;
+
+    }
+
+    moveDown = true; ant = 0;
+    if(b[2] == 0 && b[6] == 0 && b[10] == 0 && b[14] == 0) moveDown = false;
+
+    //Move down line3D, from left - not down
+    while(moveDown){
+
+        if(b[14] == 0){
+            b[14] = b[10]; b[10] = 0;
+            b[10] = b[6]; b[6] = 0;
+            b[6] = b[2]; b[2] = 0;
+        }
+        if(b[10] == 0){
+            b[10] = b[6]; b[6] = 0;
+            b[6] = b[2]; b[2] = 0;
+        }
+        if(b[6] == 0){
+            b[6] = b[2]; b[2] = 0;
+        }
+
+        if(ant == 3){
+            moveDown = false;
+        }else ant++;
+    }
+
+    if(b[10] == b[14] && b[14] != 0){                      
+        b[14] = b[10] + b[14]; b[10] = 0;
+
+        if(b[2] == b[6] && b[6] != 0){                  
+            b[10] = b[2] + b[6]; b[6] = b[2] = 0;
+    }else{                                          
+        b[10] = b[6]; b[6] = b[6]; b[6] = 0;
+    }
+
+    }else if(b[6] == b[10] && b[10] != 0){                
+        b[10] = b[10] + b[6]; 
+        b[6] = b[2]; b[2] = 0;
+
+    }else if(b[2] == b[6] && b[6] != 0){
+        b[6] = b[6] + b[2]; b[2] = 0;
+
+    }
+
+
+    moveDown = true; ant = 0;
+    if(b[3] == 0 && b[7] == 0 && b[11] == 0 && b[15] == 0) moveDown = false;
+
+    //Move down line3D, from left - not down
+    while(moveDown){
+
+        if(b[15] == 0){
+            b[15] = b[11]; b[11] = 0;
+            b[11] = b[7]; b[7] = 0;
+            b[7] = b[3]; b[3] = 0;
+        }
+        if(b[11] == 0){
+            b[11] = b[7]; b[7] = 0;
+            b[7] = b[3]; b[3] = 0;
+        }
+        if(b[7] == 0){
+            b[7] = b[3]; b[3] = 0;
+        }
+
+        if(ant == 3){
+            moveDown = false;
+        }else ant++;
+    }
+
+    if(b[11] == b[15] && b[15] != 0){                      
+        b[15] = b[11] + b[15]; b[11] = 0;
+
+        if(b[3] == b[7] && b[7] != 0){                  
+            b[11] = b[3] + b[7]; b[7] = b[3] = 0;
+    }else{                                          
+        b[11] = b[7]; b[7] = b[7]; b[7] = 0;
+    }
+
+    }else if(b[7] == b[11] && b[11] != 0){                
+        b[11] = b[11] + b[7]; 
+        b[7] = b[3]; b[3] = 0;
+
+    }else if(b[3] == b[7] && b[7] != 0){
+        b[7] = b[7] + b[7]; b[3] = 0;
 
     }
 }
