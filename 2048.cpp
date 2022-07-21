@@ -1,6 +1,7 @@
 #include <iomanip>
 #include <iostream>
-#include "E_func.h" // Homemade
+#include "E_func.h"         // Homemade
+//#include "moveFunc2028.h"   // Declaration, maybe later for better overview.
 #include <vector>
 
 //test
@@ -92,9 +93,231 @@ Game::Game()
 
 void Game::moveUp(){}
 
-void Game::moveLeft(){}
+void Game::moveLeft()
+{
 
-void Game::moveDown(){}
+    bool moveLeft = true;
+    int ant = 0;
+
+    if(b[0] == 0 && b[1] == 0 && b[2] == 0 && b[3] == 0) moveLeft = false;
+
+    std::cout << "\n-7-" << std::endl;
+
+    //Move left line1L
+    while(moveLeft){
+
+        if(b[0] == 0){
+            b[0] = b[1]; b[1] = 0;
+            b[1] = b[2]; b[2] = 0;
+            b[2] = b[3]; b[3] = 0;
+        }
+        if(b[1] == 0){
+            b[1] = b[2]; b[2] = 0;
+            b[2] = b[3]; b[3] = 0;
+        }
+        if(b[2] == 0){
+            b[2] = b[3]; b[3] = 0;
+        }
+
+        if(ant == 3){
+            moveLeft = false;
+        }else ant++;
+    }
+
+    if(b[1] == b[0] && b[0] != 0){                      // 2 høyre er lik
+        b[0] = b[1] + b[0]; b[1] = 0;
+
+        if(b[3] == b[2] && b[2] != 0){                  // 2 venstre også lik
+            b[1] = b[3] + b[2]; b[2] = b[3] = 0; moveLeft = false;
+
+        }else{                                          // bare 2 høyre var lik
+            b[1] = b[2]; b[2] = b[3]; b[3] = 0; moveLeft = false; 
+        }
+
+    }else if(b[2] == b[1] && b[1] != 0){                // 2 midten var lik
+        b[1] = b[1] + b[2]; 
+        b[2] = b[3]; b[3] = 0; moveLeft = false; 
+
+    }else if(b[3] == b[2] && b[2] != 0){
+        b[2] = b[2] + b[3]; b[3] = 0; moveLeft = false; 
+
+    }
+
+    moveLeft = true; ant = 0;
+    if(b[4] == 0 && b[5] == 0 && b[6] == 0 && b[7] == 0) moveLeft = false;
+
+    //Move left line2L
+    while(moveLeft){
+
+        if(b[4] == 0){
+            b[4] = b[5]; b[5] = 0;
+            b[5] = b[6]; b[6] = 0;
+            b[6] = b[7]; b[7] = 0;
+        }
+        if(b[5] == 0){
+            b[5] = b[6]; b[6] = 0;
+            b[6] = b[7]; b[7] = 0;
+        }
+        if(b[6] == 0){
+            b[6] = b[7]; b[7] = 0;
+        }
+
+        if(ant == 3){
+            moveLeft = false;
+        }else ant++;
+    }
+
+    if(b[5] == b[4] && b[4] != 0){                      // 2 høyre er lik
+        b[4] = b[5] + b[4]; b[5] = 0;
+
+            if(b[7] == b[6] && b[6] != 0){                  // 2 venstre også lik
+              b[5] = b[7] + b[6]; b[6] = b[7] = 0; moveLeft = false;
+
+            }else{                                          // bare 2 høyre var lik
+               b[5] = b[6]; b[6] = b[7]; b[7] = 0; moveLeft = false; 
+            }
+
+        }else if(b[6] == b[5] && b[5] != 0){                // 2 midten var lik
+            b[5] = b[5] + b[6]; 
+            b[6] = b[7]; b[7] = 0; moveLeft = false; 
+
+        }else if(b[7] == b[6] && b[6] != 0){
+            b[6] = b[6] + b[7]; b[7] = 0; moveLeft = false; 
+
+    }
+
+
+    moveLeft = true; ant = 0;
+    if(b[8] == 0 && b[9] == 0 && b[10] == 0 && b[11] == 0) moveLeft = false;
+
+    //Move left line3L
+    while(moveLeft){
+
+        if(b[8] == 0){
+            b[8] = b[9]; b[9] = 0;
+            b[9] = b[10]; b[10] = 0;
+            b[10] = b[11]; b[11] = 0;
+        }
+        if(b[9] == 0){
+            b[9] = b[10]; b[10] = 0;
+            b[10] = b[11]; b[11] = 0;
+        }
+        if(b[10] == 0){
+            b[10] = b[11]; b[11] = 0;
+        }
+
+        if(ant == 3){
+            moveLeft = false;
+        }else ant++;
+    }
+
+        if(b[9] == b[8] && b[8] != 0){                      // 2 høyre er lik
+            b[8] = b[9] + b[8]; b[9] = 0;
+
+            if(b[11] == b[10] && b[10] != 0){                  // 2 venstre også lik
+              b[9] = b[11] + b[10]; b[10] = b[11] = 0; moveLeft = false;
+
+            }else{                                          // bare 2 høyre var lik
+               b[9] = b[10]; b[10] = b[11]; b[11] = 0; moveLeft = false; 
+            }
+
+        }else if(b[10] == b[9] && b[9] != 0){                // 2 midten var lik
+            b[9] = b[9] + b[10]; 
+            b[10] = b[11]; b[11] = 0; moveLeft = false; 
+
+        }else if(b[11] == b[10] && b[10] != 0){
+            b[10] = b[10] + b[11]; b[11] = 0; moveLeft = false; 
+        }
+
+    moveLeft = true; ant = 0;
+    if(b[12] == 0 && b[13] == 0 && b[14] == 0 && b[15] == 0) moveLeft = false;
+
+    //Move left line4
+    while(moveLeft){
+
+        if(b[12] == 0){
+            b[12] = b[13]; b[13] = 0;
+            b[13] = b[14]; b[14] = 0;
+            b[14] = b[15]; b[15] = 0;
+        }
+        if(b[13] == 0){
+            b[13] = b[14]; b[14] = 0;
+            b[14] = b[15]; b[15] = 0;
+        }
+        if(b[14] == 0){
+            b[14] = b[15]; b[15] = 0;
+        }
+
+        if(ant == 3){
+            moveLeft = false;
+        }else ant++;
+    }
+
+        if(b[12] == b[13] && b[13] != 0){                      // 2 høyre er lik
+        b[12] = b[13] + b[12]; b[13] = 0;
+
+            if(b[15] == b[14] && b[14] != 0){                  // 2 venstre også lik
+              b[13] = b[15] + b[14]; b[14] = b[15] = 0; moveLeft = false;
+
+            }else{                                          // bare 2 høyre var lik
+               b[13] = b[14]; b[14] = b[15]; b[15] = 0; moveLeft = false; 
+            }
+
+        }else if(b[14] == b[13] && b[13] != 0){                // 2 midten var lik
+            b[9] = b[9] + b[10]; 
+            b[10] = b[11]; b[11] = 0; moveLeft = false; 
+
+        }else if(b[15] == b[14] && b[14] != 0){
+            b[14] = b[14] + b[15]; b[15] = 0; moveLeft = false; 
+    }
+}
+
+void Game::moveDown(){
+    bool moveDown = true;
+    int ant = 0;
+
+    if(b[3] == 0 && b[2] == 0 && b[1] == 0 && b[0] == 0) moveDown = false;
+
+    //Move down line1D, from left
+    while(moveDown){
+
+        if(b[3] == 0){
+            b[3] = b[2]; b[2] = 0;
+            b[2] = b[1]; b[1] = 0;
+            b[1] = b[0]; b[0] = 0;
+        }
+        if(b[2] == 0){
+            b[2] = b[1]; b[1] = 0;
+            b[1] = b[0]; b[0] = 0;
+        }
+        if(b[1] == 0){
+            b[1] = b[0]; b[0] = 0;
+        }
+
+        if(ant == 3){
+            moveDown = false;
+        }else ant++;
+    }
+
+    if(b[2] == b[3] && b[3] != 0){                      
+        b[3] = b[2] + b[3]; b[2] = 0;
+
+        if(b[0] == b[1] && b[1] != 0){                  
+            b[2] = b[0] + b[1]; b[1] = b[0] = 0; moveDown = false;
+
+    }else{                                          
+        b[2] = b[1]; b[1] = b[0]; b[0] = 0; moveDown = false; 
+    }
+
+    }else if(b[1] == b[2] && b[2] != 0){                
+        b[2] = b[2] + b[1]; 
+        b[1] = b[0]; b[0] = 0; moveDown = false; 
+
+    }else if(b[0] == b[1] && b[1] != 0){
+        b[1] = b[1] + b[0]; b[0] = 0; moveDown = false; 
+
+    }
+}
 
 void Game::moveRight()
 {
@@ -102,11 +325,7 @@ void Game::moveRight()
     bool moveRight = true;
     int ant = 0;
 
-    // Lim inn 80% kode her. 
-
     if(b[3] == 0 && b[2] == 0 && b[1] == 0 && b[0] == 0) moveRight = false;
-
-    std::cout << "\n-7-" << std::endl;
 
     //Move right line1R
     while(moveRight){
@@ -127,26 +346,25 @@ void Game::moveRight()
         if(ant == 3){
             moveRight = false;
         }else ant++;
+    }
 
-        if(b[2] == b[3] && b[3] != 0){                      // 2 høyre er lik
+    if(b[2] == b[3] && b[3] != 0){                      // 2 høyre er lik
         b[3] = b[2] + b[3]; b[2] = 0;
 
-            if(b[0] == b[1] && b[1] != 0){                  // 2 venstre også lik
-              b[2] = b[0] + b[1]; b[1] = b[0] = 0; moveRight = false;
+        if(b[0] == b[1] && b[1] != 0){                  // 2 venstre også lik
+            b[2] = b[0] + b[1]; b[1] = b[0] = 0; moveRight = false;
 
-            }else{                                          // bare 2 høyre var lik
-               b[2] = b[1]; b[1] = b[0]; b[0] = 0; moveRight = false; 
-            }
+    }else{                                          // bare 2 høyre var lik
+        b[2] = b[1]; b[1] = b[0]; b[0] = 0; moveRight = false; 
+    }
 
-        }else if(b[1] == b[2] && b[2] != 0){                // 2 midten var lik
-            b[2] = b[2] + b[1]; 
-            b[1] = b[0]; b[0] = 0; moveRight = false; 
+    }else if(b[1] == b[2] && b[2] != 0){                // 2 midten var lik
+        b[2] = b[2] + b[1]; 
+        b[1] = b[0]; b[0] = 0; moveRight = false; 
 
-        }else if(b[0] == b[1] && b[1] != 0){
-            b[1] = b[1] + b[0]; b[0] = 0; moveRight = false; 
+    }else if(b[0] == b[1] && b[1] != 0){
+        b[1] = b[1] + b[0]; b[0] = 0; moveRight = false; 
 
-        }
-        
     }
 
     //Move right line2R
@@ -172,24 +390,24 @@ void Game::moveRight()
             moveRight = false;
         }else ant++;
 
-        if(b[6] == b[7] && b[7] != 0){                      // 2 høyre er lik
+    }
+
+    if(b[6] == b[7] && b[7] != 0){                      // 2 høyre er lik
         b[7] = b[6] + b[7]; b[6] = 0;
 
-            if(b[4] == b[5] && b[5] != 0){                  // 2 venstre også lik
-              b[6] = b[4] + b[5]; b[5] = b[5] = 0; moveRight = false; 
+        if(b[4] == b[5] && b[5] != 0){                  // 2 venstre også lik
+            b[6] = b[4] + b[5]; b[5] = b[5] = 0; moveRight = false; 
 
-            }else{                                          // bare 2 høyre var lik
-               b[6] = b[5]; b[5] = b[4]; b[4] = 0; moveRight = false;
-            }
-
-        }else if(b[5] == b[6] && b[6] != 0){                // 2 midten var lik
-            b[6] = b[6] + b[5]; 
-            b[5] = b[4]; b[4] = 0; moveRight = false;
-
-        }else if(b[4] == b[5] && b[5] != 0){
-            b[5] = b[5] + b[4]; b[4] = 0; moveRight = false;
-
+        }else{                                          // bare 2 høyre var lik
+            b[6] = b[5]; b[5] = b[4]; b[4] = 0; moveRight = false;
         }
+
+    }else if(b[5] == b[6] && b[6] != 0){                // 2 midten var lik
+        b[6] = b[6] + b[5]; 
+        b[5] = b[4]; b[4] = 0; moveRight = false;
+
+    }else if(b[4] == b[5] && b[5] != 0){
+        b[5] = b[5] + b[4]; b[4] = 0; moveRight = false;
 
     }
 
@@ -216,24 +434,24 @@ void Game::moveRight()
             moveRight = false;
         }else ant++;
 
-        if(b[10] == b[11] && b[11] != 0){                   // 2 høyre er lik
+    }
+
+    if(b[10] == b[11] && b[11] != 0){                   // 2 høyre er lik
         b[11] = b[10] + b[11]; b[10] = 0;
 
-            if(b[8] == b[9] && b[9] != 0){                  // 2 venstre også lik
-              b[10] = b[8] + b[9]; b[9] = b[9] = 0; moveRight = false;
+        if(b[8] == b[9] && b[9] != 0){                  // 2 venstre også lik
+            b[10] = b[8] + b[9]; b[9] = b[9] = 0; moveRight = false;
 
-            }else{                                          // bare 2 høyre var lik
-               b[10] = b[9]; b[9] = b[8]; b[8] = 0; moveRight = false;       
-            }
-
-        }else if(b[9] == b[10] && b[10] != 0){                // 2 midten var lik
-            b[10] = b[10] + b[9]; 
-            b[9] = b[8]; b[8] = 0; moveRight = false;
-
-        }else if(b[8] == b[9] && b[9] != 0){
-            b[9] = b[9] + b[8]; b[8] = 0; moveRight = false;
-
+        }else{                                          // bare 2 høyre var lik
+            b[10] = b[9]; b[9] = b[8]; b[8] = 0; moveRight = false;       
         }
+
+    }else if(b[9] == b[10] && b[10] != 0){                // 2 midten var lik
+        b[10] = b[10] + b[9]; 
+        b[9] = b[8]; b[8] = 0; moveRight = false;
+
+    }else if(b[8] == b[9] && b[9] != 0){
+        b[9] = b[9] + b[8]; b[8] = 0; moveRight = false;
 
     }
 
@@ -260,24 +478,24 @@ void Game::moveRight()
             moveRight = false;
         }else ant++;
 
-        if(b[14] == b[15] && b[15] != 0){                      // 2 høyre er lik
+    }
+
+    if(b[14] == b[15] && b[15] != 0){                      // 2 høyre er lik
         b[15] = b[14] + b[14]; b[14] = 0;
 
-            if(b[12] == b[13] && b[13] != 0){                  // 2 venstre også lik
-              b[14] = b[12] + b[13]; b[13] = b[13] = 0; moveRight = false;
+        if(b[12] == b[13] && b[13] != 0){                  // 2 venstre også lik
+            b[14] = b[12] + b[13]; b[13] = b[13] = 0; moveRight = false;
 
-            }else{                                             // bare 2 høyre var lik
-               b[14] = b[13]; b[13] = b[12]; b[12] = 0; moveRight = false;        
-            }
-
-        }else if(b[13] == b[14] && b[14] != 0){                // 2 midten var lik
-            b[14] = b[14] + b[13]; 
-            b[13] = b[12]; b[12] = 0; moveRight = false; 
-
-        }else if(b[12] == b[13] && b[13] != 0){
-            b[13] = b[13] + b[12]; b[12] = 0; moveRight = false; 
-
+        }else{                                             // bare 2 høyre var lik
+            b[14] = b[13]; b[13] = b[12]; b[12] = 0; moveRight = false;        
         }
+
+    }else if(b[13] == b[14] && b[14] != 0){                // 2 midten var lik
+        b[14] = b[14] + b[13]; 
+        b[13] = b[12]; b[12] = 0; moveRight = false; 
+
+    }else if(b[12] == b[13] && b[13] != 0){
+        b[13] = b[13] + b[12]; b[12] = 0; moveRight = false; 
 
     }
 
