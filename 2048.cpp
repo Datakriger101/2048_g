@@ -148,41 +148,22 @@ void Game::move(int nr3, int nr2, int nr1, int nr0)
 
 void Game::moveUp()
 {
-
-    move(0, 4, 8, 12);
-    move(1, 5, 9, 13);
-    move(2, 6, 10, 14);
-    move(3, 7, 11, 15);
-
+    for(int i = 0; i < 4 ; i++) move(i, i+4, i+8, i+12);
 }
 
 void Game::moveLeft()
 {
-    move(0, 1, 2, 3);
-    move(4, 5, 6, 7);
-    move(8, 9, 10, 11);
-    move(12, 13, 14, 15);
-
+    for(int i = 0; i <= 12; i+=4) move(i, i+1, i+2, i+3);
 }
 
 void Game::moveDown()
 {
-
-    move(12, 8, 4, 0);
-    move(13, 9, 5, 1);
-    move(14, 10, 6, 2);
-    move(15, 11, 7, 3);
-
+    for(int i = 12; i <= 15; i++) move(i, i-4, i-8, i-12);
 }
 
 void Game::moveRight()
 {
-
-    move(3, 2, 1, 0);
-    move(7, 6, 5, 4);
-    move(11, 10, 9, 8);
-    move(15, 14, 13, 12);
-
+    for(int i = 3; i <= 15; i+=4) move(i, i-1, i-2, i-3);
 }
 
 void Game::playGame()
@@ -223,9 +204,8 @@ void Game::playGame()
             if(checkLoss()){
                 std::cout << "\nThe game has ended!" << std::endl;
                 lost = true;
-            }
-
-            input = r_char("What operation u want to do");
+            }else
+                input = r_char("What operation u want to do");
 
         }
     }else
