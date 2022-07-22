@@ -43,6 +43,8 @@ class Game
         void moveDown();
         void moveRight();
 
+        void move(int nr0, int nr1, int nr2, int nr3);
+
         Game(); //constructor to make to board
 };
 
@@ -96,714 +98,92 @@ Game::Game()
     Move functions, fuck dette kan ta tid. 
 */
 
-void Game::moveUp()
+void Game::move(int nr3, int nr2, int nr1, int nr0)
 {
-    bool moveUp = true;
+    bool move = true;
     int ant = 0;
 
-    if(b[12] == 0 && b[8] == 0 && b[4] == 0 && b[0] == 0) moveUp = false;
+    if(b[nr3] == 0 && b[nr2] == 0 && b[nr1] == 0 && b[nr0] == 0) move = false;
 
-    //Move up line1U, from left
-    while(moveUp){
+    //Move right line1R
+    while(move){
 
-        if(b[0] == 0){
-            b[0] = b[4]; b[4] = 0;
-            b[4] = b[8]; b[8] = 0;
-            b[8] = b[12]; b[12] = 0;
+        if(b[nr3] == 0){
+            b[nr3] = b[nr2]; b[nr2] = 0;
+            b[nr2] = b[nr1]; b[nr1] = 0;
+            b[nr1] = b[nr0]; b[nr0] = 0;
         }
-        if(b[4] == 0){
-            b[4] = b[8]; b[8] = 0;
-            b[8] = b[12]; b[12] = 0;
+        if(b[nr2] == 0){
+            b[nr2] = b[nr1]; b[nr1] = 0;
+            b[nr1] = b[nr0]; b[nr0] = 0;
         }
-        if(b[8] == 0){
-            b[8] = b[12]; b[12] = 0;
-        }
-
-        if(ant == 3){
-            moveUp = false;
-        }else ant++;
-    }
-
-    if(b[0] == b[4] && b[4] != 0){                      
-        b[0] = b[4] + b[0]; b[4] = 0;
-
-        if(b[8] == b[12] && b[12] != 0){                  
-            b[4] = b[8] + b[12]; b[8] = b[12] = 0;
-    }else{                                          
-        b[4] = b[8]; b[8] = b[12]; b[12] = 0;
-    }
-
-    }else if(b[4] == b[8] && b[8] != 0){                
-        b[4] = b[4] + b[8]; 
-        b[8] = b[12]; b[12] = 0;
-
-    }else if(b[8] == b[12] && b[12] != 0){
-        b[8] = b[8] + b[12]; b[12] = 0;
-
-    }
-
-    moveUp = true; ant = 0;
-    if(b[13] == 0 && b[9] == 0 && b[5] == 0 && b[1] == 0) moveUp = false;
-
-    //Move up line2U, from left
-    while(moveUp){
-
-        if(b[1] == 0){
-            b[1] = b[5]; b[5] = 0;
-            b[5] = b[9]; b[9] = 0;
-            b[9] = b[13]; b[13] = 0;
-        }
-        if(b[5] == 0){
-            b[5] = b[9]; b[9] = 0;
-            b[9] = b[13]; b[13] = 0;
-        }
-        if(b[9] == 0){
-            b[9] = b[13]; b[13] = 0;
+        if(b[nr1] == 0){
+            b[nr1] = b[nr0]; b[nr0] = 0;
         }
 
         if(ant == 3){
-            moveUp = false;
+            move = false;
         }else ant++;
     }
 
-    if(b[1] == b[5] && b[5] != 0){                      
-        b[1] = b[5] + b[1]; b[5] = 0;
+    if(b[nr2] == b[nr3] && b[nr3] != 0){                      // 2 høyre er lik
+        b[nr3] = b[nr2] + b[nr3]; b[nr2] = 0;
 
-        if(b[9] == b[13] && b[13] != 0){                  
-            b[5] = b[5] + b[13]; b[9] = b[13] = 0;
-    }else{                                          
-        b[5] = b[9]; b[9] = b[13]; b[13] = 0;
+        if(b[nr0] == b[nr1] && b[nr1] != 0){                  // 2 venstre også lik
+            b[nr2] = b[nr0] + b[nr1]; b[nr1] = b[nr0] = 0;
+
+    }else{                                          // bare 2 høyre var lik
+        b[nr2] = b[nr1]; b[nr1] = b[nr0]; b[nr0] = 0;
     }
 
-    }else if(b[5] == b[9] && b[9] != 0){                
-        b[5] = b[5] + b[9]; 
-        b[9] = b[13]; b[13] = 0;
+    }else if(b[nr1] == b[nr2] && b[nr2] != 0){                // 2 midten var lik
+        b[nr2] = b[nr2] + b[nr1]; 
+        b[nr1] = b[nr0]; b[nr0] = 0;
 
-    }else if(b[9] == b[13] && b[13] != 0){
-        b[9] = b[9] + b[13]; b[13] = 0;
-
-    }
-
-    moveUp = true; ant = 0;
-    if(b[14] == 0 && b[10] == 0 && b[6] == 0 && b[2] == 0) moveUp = false;
-
-    //Move up line2U, from left
-    while(moveUp){
-
-        if(b[2] == 0){
-            b[2] = b[6]; b[6] = 0;
-            b[6] = b[10]; b[10] = 0;
-            b[10] = b[14]; b[14] = 0;
-        }
-        if(b[6] == 0){
-            b[6] = b[10]; b[10] = 0;
-            b[10] = b[14]; b[14] = 0;
-        }
-        if(b[10] == 0){
-            b[10] = b[14]; b[14] = 0;
-        }
-
-        if(ant == 3){
-            moveUp = false;
-        }else ant++;
-    }
-
-    if(b[2] == b[6] && b[6] != 0){                      
-        b[2] = b[6] + b[2]; b[6] = 0;
-
-        if(b[10] == b[14] && b[14] != 0){                  
-            b[6] = b[6] + b[14]; b[10] = b[14] = 0;
-    }else{                                          
-        b[6] = b[10]; b[10] = b[14]; b[14] = 0;
-    }
-
-    }else if(b[6] == b[10] && b[10] != 0){                
-        b[6] = b[6] + b[10]; 
-        b[10] = b[14]; b[14] = 0;
-
-    }else if(b[10] == b[14] && b[10] != 0){
-        b[10] = b[10] + b[14]; b[14] = 0;
+    }else if(b[nr0] == b[nr1] && b[nr1] != 0){
+        b[nr1] = b[nr1] + b[nr0]; b[nr0] = 0;
 
     }
+}
 
-    moveUp = true; ant = 0;
-    if(b[15] == 0 && b[11] == 0 && b[7] == 0 && b[3] == 0) moveUp = false;
+void Game::moveUp()
+{
 
-    //Move up line2U, from left
-    while(moveUp){
-
-        if(b[3] == 0){
-            b[3] = b[7]; b[7] = 0;
-            b[7] = b[11]; b[11] = 0;
-            b[11] = b[15]; b[15] = 0;
-        }
-        if(b[7] == 0){
-            b[7] = b[11]; b[11] = 0;
-            b[11] = b[15]; b[15] = 0;
-        }
-        if(b[11] == 0){
-            b[11] = b[15]; b[15] = 0;
-        }
-
-        if(ant == 3){
-            moveUp = false;
-        }else ant++;
-    }
-
-    if(b[3] == b[7] && b[7] != 0){                      
-        b[3] = b[7] + b[3]; b[7] = 0;
-
-        if(b[11] == b[15] && b[15] != 0){                  
-            b[7] = b[7] + b[15]; b[11] = b[15] = 0;
-    }else{                                          
-        b[7] = b[11]; b[11] = b[15]; b[15] = 0;
-    }
-
-    }else if(b[7] == b[11] && b[11] != 0){                
-        b[7] = b[7] + b[11]; 
-        b[11] = b[15]; b[15] = 0;
-
-    }else if(b[11] == b[15] && b[11] != 0){
-        b[11] = b[11] + b[15]; b[15] = 0;
-
-    }
+    move(0, 4, 8, 12);
+    move(1, 5, 9, 13);
+    move(2, 6, 10, 14);
+    move(3, 7, 11, 15);
 
 }
 
 void Game::moveLeft()
 {
+    move(0, 1, 2, 3);
+    move(4, 5, 6, 7);
+    move(8, 9, 10, 11);
+    move(12, 13, 14, 15);
 
-    bool moveLeft = true;
-    int ant = 0;
-
-    if(b[0] == 0 && b[1] == 0 && b[2] == 0 && b[3] == 0) moveLeft = false;
-
-    std::cout << "\n-7-" << std::endl;
-
-    //Move left line1L
-    while(moveLeft){
-
-        if(b[0] == 0){
-            b[0] = b[1]; b[1] = 0;
-            b[1] = b[2]; b[2] = 0;
-            b[2] = b[3]; b[3] = 0;
-        }
-        if(b[1] == 0){
-            b[1] = b[2]; b[2] = 0;
-            b[2] = b[3]; b[3] = 0;
-        }
-        if(b[2] == 0){
-            b[2] = b[3]; b[3] = 0;
-        }
-
-        if(ant == 3){
-            moveLeft = false;
-        }else ant++;
-    }
-
-    if(b[1] == b[0] && b[0] != 0){                      // 2 høyre er lik
-        b[0] = b[1] + b[0]; b[1] = 0;
-
-        if(b[3] == b[2] && b[2] != 0){                  // 2 venstre også lik
-            b[1] = b[3] + b[2]; b[2] = b[3] = 0; moveLeft = false;
-
-        }else{                                          // bare 2 høyre var lik
-            b[1] = b[2]; b[2] = b[3]; b[3] = 0; moveLeft = false; 
-        }
-
-    }else if(b[2] == b[1] && b[1] != 0){                // 2 midten var lik
-        b[1] = b[1] + b[2]; 
-        b[2] = b[3]; b[3] = 0; moveLeft = false; 
-
-    }else if(b[3] == b[2] && b[2] != 0){
-        b[2] = b[2] + b[3]; b[3] = 0; moveLeft = false; 
-
-    }
-
-    moveLeft = true; ant = 0;
-    if(b[4] == 0 && b[5] == 0 && b[6] == 0 && b[7] == 0) moveLeft = false;
-
-    //Move left line2L
-    while(moveLeft){
-
-        if(b[4] == 0){
-            b[4] = b[5]; b[5] = 0;
-            b[5] = b[6]; b[6] = 0;
-            b[6] = b[7]; b[7] = 0;
-        }
-        if(b[5] == 0){
-            b[5] = b[6]; b[6] = 0;
-            b[6] = b[7]; b[7] = 0;
-        }
-        if(b[6] == 0){
-            b[6] = b[7]; b[7] = 0;
-        }
-
-        if(ant == 3){
-            moveLeft = false;
-        }else ant++;
-    }
-
-    if(b[5] == b[4] && b[4] != 0){                      // 2 høyre er lik
-        b[4] = b[5] + b[4]; b[5] = 0;
-
-            if(b[7] == b[6] && b[6] != 0){                  // 2 venstre også lik
-              b[5] = b[7] + b[6]; b[6] = b[7] = 0; moveLeft = false;
-
-            }else{                                          // bare 2 høyre var lik
-               b[5] = b[6]; b[6] = b[7]; b[7] = 0; moveLeft = false; 
-            }
-
-        }else if(b[6] == b[5] && b[5] != 0){                // 2 midten var lik
-            b[5] = b[5] + b[6]; 
-            b[6] = b[7]; b[7] = 0; moveLeft = false; 
-
-        }else if(b[7] == b[6] && b[6] != 0){
-            b[6] = b[6] + b[7]; b[7] = 0; moveLeft = false; 
-
-    }
-
-
-    moveLeft = true; ant = 0;
-    if(b[8] == 0 && b[9] == 0 && b[10] == 0 && b[11] == 0) moveLeft = false;
-
-    //Move left line3L
-    while(moveLeft){
-
-        if(b[8] == 0){
-            b[8] = b[9]; b[9] = 0;
-            b[9] = b[10]; b[10] = 0;
-            b[10] = b[11]; b[11] = 0;
-        }
-        if(b[9] == 0){
-            b[9] = b[10]; b[10] = 0;
-            b[10] = b[11]; b[11] = 0;
-        }
-        if(b[10] == 0){
-            b[10] = b[11]; b[11] = 0;
-        }
-
-        if(ant == 3){
-            moveLeft = false;
-        }else ant++;
-    }
-
-        if(b[9] == b[8] && b[8] != 0){                      // 2 høyre er lik
-            b[8] = b[9] + b[8]; b[9] = 0;
-
-            if(b[11] == b[10] && b[10] != 0){                  // 2 venstre også lik
-              b[9] = b[11] + b[10]; b[10] = b[11] = 0; moveLeft = false;
-
-            }else{                                          // bare 2 høyre var lik
-               b[9] = b[10]; b[10] = b[11]; b[11] = 0; moveLeft = false; 
-            }
-
-        }else if(b[10] == b[9] && b[9] != 0){                // 2 midten var lik
-            b[9] = b[9] + b[10]; 
-            b[10] = b[11]; b[11] = 0; moveLeft = false; 
-
-        }else if(b[11] == b[10] && b[10] != 0){
-            b[10] = b[10] + b[11]; b[11] = 0; moveLeft = false; 
-        }
-
-    moveLeft = true; ant = 0;
-    if(b[12] == 0 && b[13] == 0 && b[14] == 0 && b[15] == 0) moveLeft = false;
-
-    //Move left line4
-    while(moveLeft){
-
-        if(b[12] == 0){
-            b[12] = b[13]; b[13] = 0;
-            b[13] = b[14]; b[14] = 0;
-            b[14] = b[15]; b[15] = 0;
-        }
-        if(b[13] == 0){
-            b[13] = b[14]; b[14] = 0;
-            b[14] = b[15]; b[15] = 0;
-        }
-        if(b[14] == 0){
-            b[14] = b[15]; b[15] = 0;
-        }
-
-        if(ant == 3){
-            moveLeft = false;
-        }else ant++;
-    }
-
-        if(b[12] == b[13] && b[13] != 0){                      // 2 høyre er lik
-        b[12] = b[13] + b[12]; b[13] = 0;
-
-            if(b[15] == b[14] && b[14] != 0){                  // 2 venstre også lik
-              b[13] = b[15] + b[14]; b[14] = b[15] = 0; moveLeft = false;
-
-            }else{                                          // bare 2 høyre var lik
-               b[13] = b[14]; b[14] = b[15]; b[15] = 0; moveLeft = false; 
-            }
-
-        }else if(b[14] == b[13] && b[13] != 0){                // 2 midten var lik
-            b[13] = b[13] + b[14]; 
-            b[14] = b[15]; b[15] = 0; moveLeft = false; 
-
-        }else if(b[15] == b[14] && b[14] != 0){
-            b[14] = b[14] + b[15]; b[15] = 0; moveLeft = false; 
-    }
 }
 
-void Game::moveDown(){
-    bool moveDown = true;
-    int ant = 0;
+void Game::moveDown()
+{
 
-    if(b[0] == 0 && b[4] == 0 && b[8] == 0 && b[12] == 0) moveDown = false;
+    move(12, 8, 4, 0);
+    move(13, 9, 5, 1);
+    move(14, 10, 6, 2);
+    move(15, 11, 7, 3);
 
-    //Move down line1D, from left
-    while(moveDown){
-
-        if(b[12] == 0){
-            b[12] = b[8]; b[8] = 0;
-            b[8] = b[4]; b[4] = 0;
-            b[4] = b[0]; b[0] = 0;
-        }
-        if(b[8] == 0){
-            b[8] = b[4]; b[4] = 0;
-            b[4] = b[0]; b[0] = 0;
-        }
-        if(b[4] == 0){
-            b[4] = b[0]; b[0] = 0;
-        }
-
-        if(ant == 3){
-            moveDown = false;
-        }else ant++;
-    }
-
-    if(b[8] == b[12] && b[12] != 0){                      
-        b[12] = b[8] + b[12]; b[8] = 0;
-
-        if(b[0] == b[4] && b[4] != 0){                  
-            b[8] = b[0] + b[4]; b[4] = b[0] = 0;
-    }else{                                          
-        b[8] = b[4]; b[4] = b[0]; b[0] = 0;
-    }
-
-    }else if(b[4] == b[8] && b[8] != 0){                
-        b[8] = b[8] + b[4]; 
-        b[4] = b[0]; b[0] = 0;
-
-    }else if(b[0] == b[4] && b[4] != 0){
-        b[4] = b[4] + b[0]; b[0] = 0;
-
-    }
-    
-    moveDown = true; ant = 0;
-    if(b[1] == 0 && b[5] == 0 && b[9] == 0 && b[13] == 0) moveDown = false;
-
-    //Move down line2D, from left - not down
-    while(moveDown){
-
-        if(b[13] == 0){
-            b[13] = b[9]; b[9] = 0;
-            b[9] = b[5]; b[5] = 0;
-            b[5] = b[1]; b[1] = 0;
-        }
-        if(b[9] == 0){
-            b[9] = b[5]; b[5] = 0;
-            b[5] = b[1]; b[1] = 0;
-        }
-        if(b[5] == 0){
-            b[5] = b[1]; b[1] = 0;
-        }
-
-        if(ant == 3){
-            moveDown = false;
-        }else ant++;
-    }
-
-    if(b[9] == b[13] && b[13] != 0){                      
-        b[13] = b[9] + b[13]; b[9] = 0;
-
-        if(b[1] == b[5] && b[5] != 0){                  
-            b[9] = b[1] + b[5]; b[5] = b[1] = 0;
-    }else{                                          
-        b[9] = b[5]; b[5] = b[1]; b[1] = 0;
-    }
-
-    }else if(b[5] == b[9] && b[9] != 0){                
-        b[9] = b[9] + b[5]; 
-        b[5] = b[1]; b[1] = 0;
-
-    }else if(b[1] == b[5] && b[5] != 0){
-        b[5] = b[5] + b[1]; b[1] = 0;
-
-    }
-
-    moveDown = true; ant = 0;
-    if(b[2] == 0 && b[6] == 0 && b[10] == 0 && b[14] == 0) moveDown = false;
-
-    //Move down line3D, from left - not down
-    while(moveDown){
-
-        if(b[14] == 0){
-            b[14] = b[10]; b[10] = 0;
-            b[10] = b[6]; b[6] = 0;
-            b[6] = b[2]; b[2] = 0;
-        }
-        if(b[10] == 0){
-            b[10] = b[6]; b[6] = 0;
-            b[6] = b[2]; b[2] = 0;
-        }
-        if(b[6] == 0){
-            b[6] = b[2]; b[2] = 0;
-        }
-
-        if(ant == 3){
-            moveDown = false;
-        }else ant++;
-    }
-
-    if(b[10] == b[14] && b[14] != 0){                      
-        b[14] = b[10] + b[14]; b[10] = 0;
-
-        if(b[2] == b[6] && b[6] != 0){                  
-            b[10] = b[2] + b[6]; b[6] = b[2] = 0;
-    }else{                                          
-        b[10] = b[6]; b[6] = b[6]; b[6] = 0;
-    }
-
-    }else if(b[6] == b[10] && b[10] != 0){                
-        b[10] = b[10] + b[6]; 
-        b[6] = b[2]; b[2] = 0;
-
-    }else if(b[2] == b[6] && b[6] != 0){
-        b[6] = b[6] + b[2]; b[2] = 0;
-
-    }
-
-
-    moveDown = true; ant = 0;
-    if(b[3] == 0 && b[7] == 0 && b[11] == 0 && b[15] == 0) moveDown = false;
-
-    //Move down line3D, from left - not down
-    while(moveDown){
-
-        if(b[15] == 0){
-            b[15] = b[11]; b[11] = 0;
-            b[11] = b[7]; b[7] = 0;
-            b[7] = b[3]; b[3] = 0;
-        }
-        if(b[11] == 0){
-            b[11] = b[7]; b[7] = 0;
-            b[7] = b[3]; b[3] = 0;
-        }
-        if(b[7] == 0){
-            b[7] = b[3]; b[3] = 0;
-        }
-
-        if(ant == 3){
-            moveDown = false;
-        }else ant++;
-    }
-
-    if(b[11] == b[15] && b[15] != 0){                      
-        b[15] = b[11] + b[15]; b[11] = 0;
-
-        if(b[3] == b[7] && b[7] != 0){                  
-            b[11] = b[3] + b[7]; b[7] = b[3] = 0;
-    }else{                                          
-        b[11] = b[7]; b[7] = b[7]; b[7] = 0;
-    }
-
-    }else if(b[7] == b[11] && b[11] != 0){                
-        b[11] = b[11] + b[7]; 
-        b[7] = b[3]; b[3] = 0;
-
-    }else if(b[3] == b[7] && b[7] != 0){
-        b[7] = b[7] + b[7]; b[3] = 0;
-
-    }
 }
 
 void Game::moveRight()
 {
-    std::cout << "\n-5-" << std::endl;
-    bool moveRight = true;
-    int ant = 0;
 
-    if(b[3] == 0 && b[2] == 0 && b[1] == 0 && b[0] == 0) moveRight = false;
-
-    //Move right line1R
-    while(moveRight){
-
-        if(b[3] == 0){
-            b[3] = b[2]; b[2] = 0;
-            b[2] = b[1]; b[1] = 0;
-            b[1] = b[0]; b[0] = 0;
-        }
-        if(b[2] == 0){
-            b[2] = b[1]; b[1] = 0;
-            b[1] = b[0]; b[0] = 0;
-        }
-        if(b[1] == 0){
-            b[1] = b[0]; b[0] = 0;
-        }
-
-        if(ant == 3){
-            moveRight = false;
-        }else ant++;
-    }
-
-    if(b[2] == b[3] && b[3] != 0){                      // 2 høyre er lik
-        b[3] = b[2] + b[3]; b[2] = 0;
-
-        if(b[0] == b[1] && b[1] != 0){                  // 2 venstre også lik
-            b[2] = b[0] + b[1]; b[1] = b[0] = 0; moveRight = false;
-
-    }else{                                          // bare 2 høyre var lik
-        b[2] = b[1]; b[1] = b[0]; b[0] = 0; moveRight = false; 
-    }
-
-    }else if(b[1] == b[2] && b[2] != 0){                // 2 midten var lik
-        b[2] = b[2] + b[1]; 
-        b[1] = b[0]; b[0] = 0; moveRight = false; 
-
-    }else if(b[0] == b[1] && b[1] != 0){
-        b[1] = b[1] + b[0]; b[0] = 0; moveRight = false; 
-
-    }
-
-    //Move right line2R
-    moveRight = true; ant = 0;
-    if(b[7] == 0 && b[6] == 0 && b[5] == 0 && b[4] == 0){ moveRight = false; }
-
-    while(moveRight){
-
-        if(b[7] == 0){
-            b[7] = b[6]; b[6] = 0;
-            b[6] = b[5]; b[5] = 0;
-            b[5] = b[4]; b[4] = 0;
-        }
-        if(b[6] == 0){
-            b[6] = b[5]; b[5] = 0;
-            b[5] = b[4]; b[4] = 0;
-        }
-        if(b[5] == 0){
-            b[5] = b[4]; b[4] = 0;
-        }
-
-        if(ant == 3){
-            moveRight = false;
-        }else ant++;
-
-    }
-
-    if(b[6] == b[7] && b[7] != 0){                      // 2 høyre er lik
-        b[7] = b[6] + b[7]; b[6] = 0;
-
-        if(b[4] == b[5] && b[5] != 0){                  // 2 venstre også lik
-            b[6] = b[4] + b[5]; b[5] = b[5] = 0; moveRight = false; 
-
-        }else{                                          // bare 2 høyre var lik
-            b[6] = b[5]; b[5] = b[4]; b[4] = 0; moveRight = false;
-        }
-
-    }else if(b[5] == b[6] && b[6] != 0){                // 2 midten var lik
-        b[6] = b[6] + b[5]; 
-        b[5] = b[4]; b[4] = 0; moveRight = false;
-
-    }else if(b[4] == b[5] && b[5] != 0){
-        b[5] = b[5] + b[4]; b[4] = 0; moveRight = false;
-
-    }
-
-    //Move right line3R from top
-    moveRight = true; ant = 0;
-    if(b[11] == 0 && b[10] == 0 && b[9] == 0 && b[8] == 0){ moveRight = false; }
-
-    while(moveRight){
-
-        if(b[11] == 0){
-            b[11] = b[10]; b[10] = 0;
-            b[10] = b[9]; b[9] = 0;
-            b[9] = b[8]; b[8] = 0;
-        }
-        if(b[10] == 0){
-            b[10] = b[9]; b[9] = 0;
-            b[9] = b[8]; b[8] = 0;
-        }
-        if(b[9] == 0){
-            b[9] = b[8]; b[8] = 0;
-        }
-
-        if(ant == 3){
-            moveRight = false;
-        }else ant++;
-
-    }
-
-    if(b[10] == b[11] && b[11] != 0){                   // 2 høyre er lik
-        b[11] = b[10] + b[11]; b[10] = 0;
-
-        if(b[8] == b[9] && b[9] != 0){                  // 2 venstre også lik
-            b[10] = b[8] + b[9]; b[9] = b[9] = 0; moveRight = false;
-
-        }else{                                          // bare 2 høyre var lik
-            b[10] = b[9]; b[9] = b[8]; b[8] = 0; moveRight = false;       
-        }
-
-    }else if(b[9] == b[10] && b[10] != 0){                // 2 midten var lik
-        b[10] = b[10] + b[9]; 
-        b[9] = b[8]; b[8] = 0; moveRight = false;
-
-    }else if(b[8] == b[9] && b[9] != 0){
-        b[9] = b[9] + b[8]; b[8] = 0; moveRight = false;
-
-    }
-
-    //Move right line4R from top
-    moveRight = true; ant = 0;
-    if(b[11] == 0 && b[10] == 0 && b[9] == 0 && b[8] == 0){ moveRight = false; }
-
-    while(moveRight){
-
-        if(b[15] == 0){
-            b[15] = b[14]; b[14] = 0;
-            b[14] = b[13]; b[13] = 0;
-            b[13] = b[12]; b[12] = 0;
-        }
-        if(b[14] == 0){
-            b[14] = b[13]; b[13] = 0;
-            b[13] = b[12]; b[12] = 0;
-        }
-        if(b[13] == 0){
-            b[13] = b[13]; b[13] = 0;
-        }
- 
-        if(ant == 3){
-            moveRight = false;
-        }else ant++;
-
-    }
-
-    if(b[14] == b[15] && b[15] != 0){                      // 2 høyre er lik
-        b[15] = b[14] + b[14]; b[14] = 0;
-
-        if(b[12] == b[13] && b[13] != 0){                  // 2 venstre også lik
-            b[14] = b[12] + b[13]; b[13] = b[13] = 0; moveRight = false;
-
-        }else{                                             // bare 2 høyre var lik
-            b[14] = b[13]; b[13] = b[12]; b[12] = 0; moveRight = false;        
-        }
-
-    }else if(b[13] == b[14] && b[14] != 0){                // 2 midten var lik
-        b[14] = b[14] + b[13]; 
-        b[13] = b[12]; b[12] = 0; moveRight = false; 
-
-    }else if(b[12] == b[13] && b[13] != 0){
-        b[13] = b[13] + b[12]; b[12] = 0; moveRight = false; 
-
-    }
+    move(3, 2, 1, 0);
+    move(7, 6, 5, 4);
+    move(11, 10, 9, 8);
+    move(15, 14, 13, 12);
 
 }
-
 
 void Game::playGame()
 {
