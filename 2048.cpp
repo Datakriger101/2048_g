@@ -1,3 +1,8 @@
+/*
+ * This is the first version of the kinda finished game, v1 if you want. 
+ *
+ */
+
 #include <iomanip>
 #include <iostream>
 #include "E_func.h"         // Homemade
