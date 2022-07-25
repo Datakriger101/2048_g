@@ -8,8 +8,6 @@
 #include "E_func.h"         // Homemade
 //#include "moveFunc2028.h"   // Declaration, maybe later for better overview.
 #include <vector>
-
-//test
 #include <cstdlib>   // for rand() func
 
 /*
@@ -33,17 +31,17 @@ class Game
         void moveMenu();
         void newRandNumber();
 
-        bool checkValidMove(char tegn);
-        bool checkMoveRight();
+        bool checkValidChar(char t);
         bool checkLoss();
+        bool checkNoMoves(int nr0, int nr1, int nr2, int nr3);
 
         //Better way to do this?
-        void moveUp();
-        void moveLeft();
-        void moveDown();
-        void moveRight();
+        bool moveUp();
+        bool moveLeft();
+        bool moveDown();
+        bool moveRight();
 
-        void move(int nr0, int nr1, int nr2, int nr3);
+        bool move(int nr0, int nr1, int nr2, int nr3);
 
         Game(); //constructor to make to board
 };
@@ -56,6 +54,8 @@ void menu();
 void new_game();
 void play_game();
 void show_games();
+
+void writeToFile();
 
 std::vector<Game *> gGames;
 
@@ -81,26 +81,80 @@ int main()
 
         input = r_char("What operation do you want to execute");
     }
+
+    writeToFile();
 }
 
 Game::Game()
 {
-
     this->name = r_string("What is the name of the game");
     this->lost = false;
-    for (int i = 0; i < 16; i++)
-    {
-        b.push_back(0);
-    }
+
+    for (int i = 0; i < 16; i++) b.push_back(0);
+    
+    newRandNumber();
 }
 
 /*
     Move functions, fuck dette kan ta tid. 
 */
 
-void Game::move(int nr3, int nr2, int nr1, int nr0)
+bool Game::moveUp()
+{
+    bool check = false;
+
+    for(int i = 0; i < 4 ; i++){
+        if(!check){
+            check = move(i, i+4, i+8, i+12);
+        }else
+            move(i, i+4, i+8, i+12);
+    }
+    return(check);
+}
+
+bool Game::moveLeft()
+{
+    bool check = false;
+
+    for(int i = 0; i <= 12; i+=4){
+        if(!check){
+            check = move(i, i+1, i+2, i+3);
+        }else
+            move(i, i+1, i+2, i+3);
+    }
+    return(check);
+}
+
+bool Game::moveDown()
+{
+    bool check = false;
+
+    for(int i = 12; i <= 15; i++){
+        if(!check){
+            check = move(i, i-4, i-8, i-12);
+        }else
+            move(i, i-4, i-8, i-12);
+    }
+    return(check);
+}
+
+bool Game::moveRight()
+{
+    bool check = false;
+    
+    for(int i = 3; i <= 15; i+=4){
+        if(!check){
+            check = move(i, i-1, i-2, i-3);
+        }else
+            move(i, i-1, i-2, i-3);
+    }
+    return(check);
+}
+
+bool Game::move(int nr3, int nr2, int nr1, int nr0)
 {
     bool move = true;
+    bool check = false;
     int ant = 0;
 
     if(b[nr3] == 0 && b[nr2] == 0 && b[nr1] == 0 && b[nr0] == 0) move = false;
@@ -112,13 +166,16 @@ void Game::move(int nr3, int nr2, int nr1, int nr0)
             b[nr3] = b[nr2]; b[nr2] = 0;
             b[nr2] = b[nr1]; b[nr1] = 0;
             b[nr1] = b[nr0]; b[nr0] = 0;
+            check = true;
         }
         if(b[nr2] == 0){
             b[nr2] = b[nr1]; b[nr1] = 0;
             b[nr1] = b[nr0]; b[nr0] = 0;
+            check = true;
         }
         if(b[nr1] == 0){
             b[nr1] = b[nr0]; b[nr0] = 0;
+            check = true;
         }
 
         if(ant == 3){
@@ -128,73 +185,54 @@ void Game::move(int nr3, int nr2, int nr1, int nr0)
 
     if(b[nr2] == b[nr3] && b[nr3] != 0){                      // 2 høyre er lik
         b[nr3] = b[nr2] + b[nr3]; b[nr2] = 0;
+        check = true;
 
         if(b[nr0] == b[nr1] && b[nr1] != 0){                  // 2 venstre også lik
             b[nr2] = b[nr0] + b[nr1]; b[nr1] = b[nr0] = 0;
 
-    }else{                                          // bare 2 høyre var lik
-        b[nr2] = b[nr1]; b[nr1] = b[nr0]; b[nr0] = 0;
-    }
+        }else{                                          // bare 2 høyre var lik
+            b[nr2] = b[nr1]; b[nr1] = b[nr0]; b[nr0] = 0;
+        }
 
     }else if(b[nr1] == b[nr2] && b[nr2] != 0){                // 2 midten var lik
         b[nr2] = b[nr2] + b[nr1]; 
         b[nr1] = b[nr0]; b[nr0] = 0;
+        check = true;
 
     }else if(b[nr0] == b[nr1] && b[nr1] != 0){
         b[nr1] = b[nr1] + b[nr0]; b[nr0] = 0;
-
+        check = true;
     }
-}
-
-void Game::moveUp()
-{
-    for(int i = 0; i < 4 ; i++) move(i, i+4, i+8, i+12);
-}
-
-void Game::moveLeft()
-{
-    for(int i = 0; i <= 12; i+=4) move(i, i+1, i+2, i+3);
-}
-
-void Game::moveDown()
-{
-    for(int i = 12; i <= 15; i++) move(i, i-4, i-8, i-12);
-}
-
-void Game::moveRight()
-{
-    for(int i = 3; i <= 15; i+=4) move(i, i-1, i-2, i-3);
+    return(check);
 }
 
 void Game::playGame()
 {
-    std::cout << "\n!1!" << std::endl;
+    bool valid;
+
     if(!lost){
+
         displayBoard();
         moveMenu();
     
-    //newRandNumber();
-        std::cout << "\n!2!" << std::endl;
         char input = r_char("What operation u want to do");
         while (input != 'Q' && lost != true)
         {
             //legge til at hvis ingen posisjoner er 0, så vill spilles avsluttes.
 
-            if (checkValidMove(input))
+            if (checkValidChar(input))
             {
-                std::cout << "\n!3!" << std::endl;
                 std::cout << "\nValid - " << input << "\n";
 
-                std::cout << "\n!4!" << std::endl;
-
                 switch(input){
-                    case 'W' : moveUp(); break;
-                    case 'A' : moveLeft(); break;
-                    case 'S' : moveDown(); break;
-                    case 'D' : moveRight(); break;
-                }
+                    case 'W' : valid = moveUp(); break;
+                    case 'A' : valid = moveLeft(); break;
+                    case 'S' : valid = moveDown(); break;
+                    case 'D' : valid = moveRight(); break;
+                }   
 
-                newRandNumber();
+                if(valid){newRandNumber();};    //bare nytt nummer hvis noe har beveget seg.
+                
                 displayBoard();
 
             }
@@ -213,14 +251,64 @@ void Game::playGame()
         displayBoard();
 }
 
+bool Game::checkNoMoves(int nr3, int nr2, int nr1, int nr0)
+{
+    bool playable = false;     //false == not lost / true == lost
+    int ant = 0;
+
+    if(b[nr2] == b[nr3] && b[nr3] != 0){
+        playable = true;
+
+        if(b[nr0] == b[nr1] && b[nr1] != 0){
+            //b[nr2] = b[nr0] + b[nr1]; b[nr1] = b[nr0] = 0;
+
+        }else{
+            //b[nr2] = b[nr1]; b[nr1] = b[nr0]; b[nr0] = 0;
+        }
+
+    }else if(b[nr1] == b[nr2] && b[nr2] != 0){
+        playable = true;
+
+    }else if(b[nr0] == b[nr1] && b[nr1] != 0){
+        playable = true;
+    }
+
+    return(playable);
+}
+
 bool Game::checkLoss(){
     int ant = 0;
-    for(int i = 0; i < 16; i++){
-        if(b[i] != 0)ant++;
-    }
-    //std::cout << "\n - " << ant << " - \n";
 
-    return(ant == 16 ? true : false);
+    for(int i = 0; i < 16; i++){
+        if(b[i] != 0){
+            ant++;
+        }
+    }
+
+    if(ant == 16){
+
+        std::cout << "1-";
+        for(int i = 0; i < 4; i++){
+            std::cout << "2-";
+            if(checkNoMoves(i, i+4, i+8, i+12)) return false;   // not lost
+        }
+        for(int i = 0; i <= 12; i+=4){
+            std::cout << "3-";
+            if(checkNoMoves(i, i+1, i+2, i+3)) return false;    // and not lost
+        }
+        for(int i = 12; i <= 15; i++){
+            std::cout << "4-";
+            if(checkNoMoves(i, i-4, i-8, i-12)) return false;   // nope
+        }
+        for(int i = 3; i <= 15; i+=4){
+            std::cout << "5-";
+            if(checkNoMoves(i, i-1, i-2, i-3)) return false;    // no
+        }
+            
+    }else
+        return false;       // Not enough numbers on board
+
+    return true;            // Game Over!
 }
 
 void Game::newRandNumber()
@@ -229,13 +317,12 @@ void Game::newRandNumber()
 
     do{
         pos = rand() % 16;
-        std::cout << "\n -- " << pos << " --\n";
     }while(b[pos] != 0);
     nr = rand() % 2;
     b[pos] = (nr % 2 == 1) ? 2 : 4;
 }
 
-bool Game::checkValidMove(char t)
+bool Game::checkValidChar(char t)
 {
     return ((t == 'W' || t == 'A' || t == 'S' || t == 'D') ? true : false);
 }
@@ -316,8 +403,5 @@ void menu()
     std::cout << "\nPossble operations:\n";
     std::cout << "\n\tN - new game";
     std::cout << "\n\tS - show running games";
-    std::cout << "\n\tB - show board";
     std::cout << "\n\tP - play existing game";
-    std::cout << "\n\t";
-    std::cout << "\n\t";
 }
