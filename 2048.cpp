@@ -5,10 +5,11 @@
 
 #include <iomanip>
 #include <iostream>
-#include "E_func.h"         // Homemade
+#include "E_func.h"     // Homemade
 //#include "moveFunc2028.h"   // Declaration, maybe later for better overview.
 #include <vector>
-#include <cstdlib>   // for rand() func
+#include <cstdlib>      // for rand() func
+#include <fstream>      // File access shit
 
 /*
     Class
@@ -25,6 +26,7 @@ class Game
         // void readFile();
         void startup();
         void displayName();
+        void displayLoss();
         void displayBoard();
         void playGame();
 
@@ -43,7 +45,10 @@ class Game
 
         bool move(int nr0, int nr1, int nr2, int nr3);
 
+        void toFile(std::ofstream & out);
+
         Game(); //constructor to make to board
+        Game(std::ifstream & in);
 };
 
 /*
@@ -56,14 +61,19 @@ void play_game();
 void show_games();
 
 void writeToFile();
+void readFromFile();
 
 std::vector<Game *> gGames;
+
+/*
+ *  The Game
+ */
 
 int main()
 {
     char input;
 
-    // check from the files
+    readFromFile();
 
     menu();
     input = r_char("What operation do you want to execute");
@@ -95,9 +105,34 @@ Game::Game()
     newRandNumber();
 }
 
+Game::Game(std::ifstream & in)
+{
+    int numb;
+
+    in >> numb;
+    (numb == 1) ? lost = true : lost = false;
+
+    for(int i = 0; i < 16; i++){
+        in >> numb;
+        b.push_back(numb);
+    }
+    in.ignore();
+    getline(in, name);
+}
+
 /*
     Move functions, fuck dette kan ta tid. 
 */
+
+void Game::toFile(std::ofstream & out)
+{   
+    out << ((lost) ? "1" : "0"); 
+    
+    for(int i = 0; i < 16; i++){
+        out << " " << b[i];
+    }
+    out << " " << name << "\n";
+}
 
 bool Game::moveUp()
 {
@@ -341,7 +376,12 @@ void Game::displayBoard()
 }
 void Game::displayName()
 {
-    std::cout << this->name;
+    std::cout << std::left << std::setw(10) << this->name;
+}
+
+void Game::displayLoss()
+{
+    std::cout << ((lost) ? " - x" : "");
 }
 
 void Game::moveMenu()
@@ -352,6 +392,38 @@ void Game::moveMenu()
 /*
     Functions, main
 */
+
+void writeToFile()
+{
+    std::ofstream out("gameData.dta");
+
+    if(out){
+        std::cout << "\nI CAN WRITE\n";
+        out << gGames.size() << "\n";
+        for(int i = 0; i < gGames.size(); i++){
+            gGames[i]->toFile(out);
+        }
+    }else
+        std::cout << "\nCan't WRITE from file!\n";
+}
+
+void readFromFile()
+{
+    int nr;
+    Game* newG;
+    std::ifstream in("gameData.dta");
+
+    in >> nr; in.ignore(); //Neste linje??
+
+    if(in){
+        for(int i = 0; i < nr; i++){
+            newG = new Game(in);
+            gGames.push_back(newG);
+        }
+        
+    }else
+        std::cout << "\nCan't READ from file\n";
+}
 
 void new_game()
 {
@@ -387,16 +459,22 @@ void show_games()
 {
     if (!gGames.empty())
     {
+        std::cout << "\n\tX means the game has ended, no more moves!\n\n";
+        
         for (int i = 0; i < gGames.size(); i++)
         {
             std::cout << "\n"
                       << i + 1 << ". ";
             gGames[i]->displayName();
+            gGames[i]->displayLoss();
         }
     }
     else
         std::cout << "\nNo games to show" << std::endl;
+
+    std::cout << "\n";
 }
+    
 
 void menu()
 {
