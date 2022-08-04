@@ -31,7 +31,8 @@ class Game
         void playGame();
 
         void moveMenu();
-        void newRandNumber();
+        int newRandNumber();
+        void removeNumber(int nr);
 
         bool checkValidChar(char t);
         bool checkLoss();
@@ -102,7 +103,6 @@ Game::Game()
 
     for (int i = 0; i < 16; i++) b.push_back(0);
     
-    newRandNumber();
 }
 
 Game::Game(std::ifstream & in)
@@ -243,10 +243,12 @@ bool Game::move(int nr3, int nr2, int nr1, int nr0)
 
 void Game::playGame()
 {
+    int temp_nr;
     bool valid;
 
     if(!lost){
 
+        temp_nr = newRandNumber();
         displayBoard();
         moveMenu();
     
@@ -266,7 +268,7 @@ void Game::playGame()
                     case 'D' : valid = moveRight(); break;
                 }   
 
-                if(valid){newRandNumber();};    //bare nytt nummer hvis noe har beveget seg.
+                if(valid){temp_nr = newRandNumber();};    //bare nytt nummer hvis noe har beveget seg.
                 
                 displayBoard();
 
@@ -281,6 +283,7 @@ void Game::playGame()
                 input = r_char("What operation u want to do");
 
         }
+            removeNumber(temp_nr);
     }else
         std::cout << "\nThis game has ended!" << std::endl;
         displayBoard();
@@ -346,7 +349,7 @@ bool Game::checkLoss(){
     return true;            // Game Over!
 }
 
-void Game::newRandNumber()
+int Game::newRandNumber()
 {
     int pos, nr;
 
@@ -355,6 +358,13 @@ void Game::newRandNumber()
     }while(b[pos] != 0);
     nr = rand() % 2;
     b[pos] = (nr % 2 == 1) ? 2 : 4;
+
+    return pos; //Returns the posision on board that might be deleted if no moves are played
+}
+
+void Game::removeNumber(int nr)
+{
+    b[nr] = 0;
 }
 
 bool Game::checkValidChar(char t)
