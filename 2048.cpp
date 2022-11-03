@@ -1,6 +1,6 @@
 /*
  * This is the first version of the kinda finished game, v1 if you want. 
- *
+ * This may very well be exploited #CTF
  */
 
 #include <iomanip>
@@ -405,16 +405,19 @@ void Game::moveMenu()
 
 void writeToFile()
 {
+    int num = gGames.size();
     std::ofstream out("gameData.dta");
 
     if(out){
-        std::cout << "\nI CAN WRITE\n";
-        out << gGames.size() << "\n";
-        for(int i = 0; i < gGames.size(); i++){
+        out << num << "\n";
+        for(int i = 0; i < num; i++){
             gGames[i]->toFile(out);
         }
+        if(num){ std::cout << "\nWrote " << num << " games to file\n";
+        }else std::cout << "\nWrote nothing to file\n";
+        
     }else
-        std::cout << "\nCan't WRITE from file!\n";
+        std::cout << "\nDid not find file\n";
 }
 
 void readFromFile()
@@ -430,9 +433,11 @@ void readFromFile()
             newG = new Game(in);
             gGames.push_back(newG);
         }
+        if(nr){ std::cout << "\nRead " << nr << " of games from file\n";
+        }else std::cout << "\nNo games saved!\n";
         
     }else
-        std::cout << "\nCan't READ from file\n";
+        std::cout << "\nDid not read anything from file\n";
 }
 
 void new_game()
